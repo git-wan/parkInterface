@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+
+<mapper namespace="com.ws.parkinterface.charging.mapper.TestMapper">
+
+<!--    <parameterMap id="pm" type="java.util.Map">
+        <parameter property="pname" jdbcType="VARCHAR" mode="IN"></parameter>
+        <parameter property="age" jdbcType="INTEGER" mode="OUT"></parameter>
+    </parameterMap>-->
+
+  <!-- select age from test where pname=#{pname} * -->
+
+ <!--   <select id="test"  statementType="CALLABLE">
+        {call p_test(#{pname,mode=IN },#{age ,mode=OUT,jdbcType=INTEGER})}
+    </select>-->
+
+</mapper>

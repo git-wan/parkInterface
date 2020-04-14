@@ -1,0 +1,94 @@
+
+#数据源
+spring:
+
+ datasource:
+  dynamic:
+    druid: # 全局druid参数，绝大部分值和默认保持一致。(现已支持的参数如下,不清楚含义不要乱设置)
+      # 连接池的配置信息
+      # 初始化大小，最小，最大
+      initial-size: 5
+      min-idle: 5
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall,slf4j
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+    datasource:
+      master:
+        url: jdbc:oracle:thin:@166.100.0.25:1521:wsparktest
+        username: bsparktest
+        password: bsparktest
+        driver-class-name: oracle.jdbc.driver.OracleDriver
+# url: jdbc:oracle:thin:@162.105.200.250:1521:bsparkdb
+#   username: bsparking
+#   password: bsparking
+#   driver-class-name: oracle.jdbc.driver.OracleDriver
+        # 多数据源配置
+        #multi-datasource1:
+        #url: jdbc:mysql://localhost:3306/jeecg-boot2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+        #username: root
+        #password: root
+        #driver-class-name: com.mysql.jdbc.Driver
+    #设置时间格式
+ jackson:
+  date-format:   yyyy-MM-dd HH:mm:ss
+  time-zone:   GMT+8
+    # 设置静态文件路径，js,css等
+ mvc:
+   static-path-pattern: /**
+ resource:
+   static-locations: classpath:/static/,classpath:/public/
+   #自动配置排除掉DruidDataSourceAutoConfigure，原因在于DruidDataSourceAutoConfigure在DynamciDataSourceAutoConfiguration之前，
+   #其会注入一个DataSourceWrapper，会在原生的spring.datasource下找url,username,password等。
+   #而我们动态数据源的配置路径是变化的
+ autoconfigure:
+     exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+ http:
+   encoding:
+     charset: UTF-8
+     force: true
+     enabled: true
+
+
+mybatis-plus:
+  mapper-locations: classpath*:com/ws/parkinterface/**/mapper/xml/*Mapper.xml
+  type-aliases-package: com.ws.parkinterface.charging.entity
+  global-config:
+    # 关闭MP3.0自带的banner
+    banner: false
+
+#server:
+#  port: 8081
+
+
+
+#固定参数
+signKey: fdc10c24cf9a4916899e027d18a862e1
+merchid: a50dd85b8aab485e2de6c8c459eab1ee
+
+#声明log4j配置文件
+logging:
+  config: classpath:log4j2.xml
+
+#spring cloud
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+#ribbon:
+#  eureka:
+#    enabled: true

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ws.parkinterface.charging.mapper.ChargingMapper">
+
+	<!-- 根据用户名查询 -->
+<!--	<select id="test" resultType="string">
+		select plate from test where plate='1'
+	</select>-->
+
+	<select id="getParkingResult"  statementType="CALLABLE">
+	{call P_DIS_XJ(#{AS_CODE,mode=OUT,jdbcType=INTEGER},#{AS_MSG,mode=OUT,jdbcType=VARCHAR},#{AS_PLATENO,mode=IN},#{AS_MERCHID,mode=IN},#{AS_DURATION,mode=IN},#{AS_BIZID,mode=IN},#{AS_STARTTIME,mode=IN},#{AS_STOPTIME,mode=IN})}
+	</select>
+
+
+
+	<!--<select id="getSales"  resultType="PageData" >
+     select  *  from  REPORT_STOREDAYSALE
+    </select>-->
+
+
+
+</mapper>
